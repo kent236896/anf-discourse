@@ -1,0 +1,54 @@
+<div class="repository-dashboard">
+  <div class="repo-header">
+    <h2>GitHub Repository Rankings</h2>
+    <p>Last 28 days ranking of repositories by star growth</p>
+  </div>
+
+  <div class="category-tabs" id="category-tabs">
+    <!-- 类别选项卡在这里通过JavaScript动态生成 -->
+  </div>
+
+  <div class="repo-content">
+    <div class="category-header">
+      <h3 id="current-category">Loading...</h3>
+      <div class="period-selector">
+        <span class="selected" data-period="last-28-days">Last 28 days</span>
+        <span data-period="last-7-days">Last 7 days</span>
+        <span data-period="last-24-hours">Last 24 hours</span>
+      </div>
+    </div>
+
+    <table class="repo-table">
+      <thead>
+        <tr>
+          <th width="60">Rank</th>
+          <th>Repository</th>
+          <th width="120">Stars</th>
+          <th width="120">Total Stars</th>
+          <th width="120">Growth</th>
+        </tr>
+      </thead>
+      <tbody id="repo-table-body">
+        <!-- 仓库数据在这里通过JavaScript动态生成 -->
+      </tbody>
+    </table>
+
+    <div class="pagination-controls">
+      <div class="items-per-page">
+        Items per page:
+        <select class="combo-box">
+          <option>10</option>
+          <option>20</option>
+          <option>50</option>
+        </select>
+      </div>
+      <div class="page-info" id="page-info">0-0 of 0</div>
+      <div class="page-buttons">
+        <button disabled class="btn btn-icon">《</button>
+        <button disabled class="btn btn-icon">〈</button>
+        <button disabled class="btn btn-icon">〉</button>
+        <button disabled class="btn btn-icon">》</button>
+      </div>
+    </div>
+  </div>
+</div>

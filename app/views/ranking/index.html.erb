@@ -1,0 +1,130 @@
+<% content_for :head do %>
+  <% stylesheet_link_tag "desktop_theme" %>
+<% end %>
+
+<div class="repository-dashboard">
+  <div class="repo-header">
+    <h2><%= I18n.t("js.ranking.title") %></h2>
+    <p><%= I18n.t("js.ranking.periods.last_28_days") %></p>
+  </div>
+  
+  <div class="category-tabs" id="category-tabs">
+    <% @categories.each_with_index do |category, index| %>
+      <div class="category-tab <%= index == 0 ? 'active' : '' %>" 
+           data-category-id="<%= category[:id] %>">
+        <%= category[:name] %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="repo-content">
+    <div class="category-header">
+      <h3 id="current-category"><%= @categories.first[:name] %></h3>
+      <div class="period-selector">
+        <span class="selected" data-period="last-28-days">Last 28 days</span>
+        <span data-period="last-7-days">Last 7 days</span>
+        <span data-period="last-24-hours">Last 24 hours</span>
+      </div>
+    </div>
+    
+    <table class="repo-table">
+      <thead>
+        <tr>
+          <th width="60">Rank</th>
+          <th>Repository</th>
+          <th width="120">Stars</th>
+          <th width="120">Total Stars</th>
+          <th width="120">Growth</th>
+        </tr>
+      </thead>
+      <tbody id="repo-table-body">
+        <% first_category_repos = @repos[@categories.first[:id]] || [] %>
+        <% if first_category_repos.any? %>
+          <% first_category_repos.each do |repo| %>
+            <tr>
+              <td class="rank-cell"><%= repo[:rank] %></td>
+              <td>
+                <div class="repo-name">
+                  <a href="https://github.com/<%= repo[:name] %>" target="_blank">
+                    <%= repo[:name] %>
+                  </a>
+                </div>
+                <div class="repo-desc"><%= repo[:description] %></div>
+              </td>
+              <td><%= repo[:star_increase] %></td>
+              <td><%= number_with_delimiter(repo[:total_stars]) %></td>
+              <td class="<%= repo[:growth_is_positive] ? 'positive' : 'negative' %>">
+                <%= repo[:growth_is_positive] ? '↑' : '↓' %> <%= repo[:growth_rate] %>%
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="5" class="empty-state">
+              <%= I18n.t("js.ranking.empty_state") %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+    <div class="pagination-controls">
+      <div class="items-per-page">
+        <%= I18n.t("js.ranking.items_per_page") %>:
+        <select class="combo-box">
+          <option>10</option>
+          <option>20</option>
+          <option>50</option>
+        </select>
+      </div>
+      <div class="page-info">
+        <% if first_category_repos.any? %>
+          1-<%= first_category_repos.size %> of <%= first_category_repos.size %>
+        <% else %>
+          0-0 of 0
+        <% end %>
+      </div>
+      <div class="page-buttons">
+        <button disabled class="btn btn-icon">《</button>
+        <button disabled class="btn btn-icon">〈</button>
+        <button disabled class="btn btn-icon">〉</button>
+        <button disabled class="btn btn-icon">》</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 最小化的JavaScript，避免使用复杂的框架
+  document.addEventListener('DOMContentLoaded', function() {
+    // 类别选项卡切换功能
+    const tabs = document.querySelectorAll('.category-tab');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        // 处理UI更新
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        
+        // 获取类别ID并更新标题
+        const categoryId = this.getAttribute('data-category-id');
+        const categoryName = this.textContent.trim();
+        document.getElementById('current-category').textContent = categoryName;
+        
+        // 实际应用中，这里会通过AJAX加载数据
+        console.log('Selected category:', categoryId);
+      });
+    });
+    
+    // 时间段选择器功能
+    const periodSelectors = document.querySelectorAll('.period-selector span');
+    periodSelectors.forEach(function(selector) {
+      selector.addEventListener('click', function() {
+        periodSelectors.forEach(s => s.classList.remove('selected'));
+        this.classList.add('selected');
+        
+        // 实际应用中，这里会通过AJAX加载不同时间段的数据
+        console.log('Selected period:', this.getAttribute('data-period'));
+      });
+    });
+  });
+</script> 

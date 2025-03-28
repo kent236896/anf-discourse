@@ -1,0 +1,468 @@
+/* 版本: 1.0.1 - 强制刷新缓存 */
+.repository-dashboard {
+  font-family: var(--font-family);
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1em 0;
+}
+
+.repo-header {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.repo-header h2 {
+  font-size: 1.75em;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+  color: var(--primary);
+}
+
+.repo-header p {
+  color: var(--primary-medium);
+  margin: 0;
+  font-size: 1em;
+}
+
+.navigation-container {
+  margin-bottom: 1.5em;
+  border-bottom: 1px solid var(--primary-low);
+}
+
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 1em;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 5px;
+}
+
+.category-tab {
+  font-size: 0.9em;
+  padding: 6px 12px;
+  margin-bottom: 5px;
+}
+
+.category-tab.active {
+  background-color: var(--tertiary-low);
+  color: var(--tertiary);
+  font-weight: bold;
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.category-header h3 {
+  font-size: 1.25em;
+  font-weight: 500;
+  margin: 0;
+  color: var(--primary);
+}
+
+.period-selector {
+  display: flex;
+  gap: 0.5em;
+}
+
+.period-btn {
+  padding: 0.5em 0.75em;
+}
+
+.period-btn.active {
+  background-color: var(--tertiary-low);
+  color: var(--tertiary);
+  font-weight: bold;
+}
+
+.repo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5em;
+  border: 1px solid var(--primary-low);
+}
+
+.repo-table th {
+  text-align: left;
+  padding: 0.75em;
+  background-color: var(--primary-very-low);
+  border-bottom: 1px solid var(--primary-low);
+  color: var(--primary-high);
+}
+
+.repo-table td {
+  padding: 0.75em;
+  border-bottom: 1px solid var(--primary-low);
+  color: var(--primary);
+}
+
+.repo-name {
+  font-weight: 500;
+  margin-bottom: 0.25em;
+}
+
+.repo-name a {
+  color: var(--tertiary);
+}
+
+.repo-name a:hover {
+  text-decoration: underline;
+}
+
+.repo-desc {
+  color: var(--primary-medium);
+  font-size: 0.875em;
+}
+
+.rank-cell {
+  text-align: center;
+  font-weight: 500;
+}
+
+.positive {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.negative {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3em !important;
+}
+
+.empty-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.empty-state-icon {
+  font-size: 2.5em;
+  color: var(--primary-low-mid);
+}
+
+.empty-state-text {
+  color: var(--primary-medium);
+  font-size: 1.1em;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 1em;
+}
+
+.items-per-page {
+  display: flex;
+  align-items: center;
+  margin-right: 1.5em;
+}
+
+.items-per-page span {
+  margin-right: 0.5em;
+  color: var(--primary-medium);
+}
+
+.items-per-page-selector {
+  min-width: 5em;
+}
+
+.page-info {
+  margin-right: 1.5em;
+  color: var(--primary-medium);
+}
+
+.page-buttons {
+  display: flex;
+  gap: 0.25em;
+}
+
+/* 响应式布局 */
+@media (width <= 768px) {
+  .category-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+  }
+
+  .pagination-controls {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1em;
+  }
+
+  .items-per-page,
+  .page-info {
+    margin-right: 0;
+  }
+
+  .page-buttons {
+    align-self: flex-end;
+  }
+}
+
+@media (width <= 480px) {
+  .category-tabs {
+    flex-direction: column;
+  }
+
+  .repo-table th:nth-child(4),
+  .repo-table td:nth-child(4) {
+    display: none;
+  }
+
+  .pagination-controls {
+    width: 100%;
+  }
+}
+
+/* 加载状态样式 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+  color: var(--primary-medium);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--primary-low);
+  border-top: 4px solid var(--tertiary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.loading-text {
+  font-size: 16px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 为禁用的按钮添加样式 */
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 排名变化指示器 */
+.rank-change {
+  display: inline-block;
+  font-size: 0.75em;
+  margin-left: 4px;
+  font-weight: normal;
+}
+
+.rank-change.positive {
+  color: var(--success);
+}
+
+.rank-change.negative {
+  color: var(--danger);
+}
+
+/* 分类加载中时的样式 */
+.category-loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--primary-medium);
+}
+
+/* 确保移动设备上分类标签可以滚动而不是堆叠 */
+@media (width <= 768px) {
+  .category-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    justify-content: flex-start;
+    max-height: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .category-tab {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+}
+
+.repository-ranking {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+
+  .ranking-sidebar {
+    width: 250px;
+    margin-right: 20px;
+
+    .category-item {
+      padding: 12px 16px;
+      margin-bottom: 4px;
+      border-radius: 4px;
+      cursor: pointer;
+
+      &:hover {
+        background: #f0f0f0;
+      }
+
+      &.active {
+        background: #e6f3ff;
+        border-left: 4px solid #0078d4;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .ranking-content {
+    flex: 1;
+
+    .ranking-header {
+      margin-bottom: 16px;
+
+      h1 {
+        font-size: 22px;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      p {
+        color: #666;
+        margin: 0;
+      }
+    }
+
+    .ranking-table {
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th {
+          text-align: left;
+          padding: 12px 16px;
+          border-bottom: 2px solid #e0e0e0;
+          font-weight: 500;
+          color: #555;
+        }
+
+        td {
+          padding: 16px;
+          border-bottom: 1px solid #e0e0e0;
+        }
+
+        .rank-col {
+          width: 60px;
+        }
+
+        .repo-col {
+          .repo-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+
+            a {
+              color: #0366d6;
+              text-decoration: none;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+          }
+
+          .repo-description {
+            color: #666;
+            font-size: 14px;
+          }
+        }
+
+        .star-increase-col,
+        .total-stars-col {
+          text-align: right;
+          min-width: 120px;
+        }
+
+        .growth-rate-col {
+          text-align: right;
+          min-width: 150px;
+
+          .growth-rate {
+            padding: 4px 8px;
+            border-radius: 4px;
+
+            &.positive {
+              background-color: rgba(43, 155, 70, 0.1);
+              color: #2b9b46;
+            }
+
+            &.negative {
+              background-color: rgba(229, 57, 53, 0.1);
+              color: #e53935;
+            }
+          }
+        }
+      }
+    }
+
+    .ranking-pagination {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+
+      .page-info {
+        select {
+          margin-left: 8px;
+          padding: 4px 8px;
+          border-radius: 4px;
+          border: 1px solid #ccc;
+        }
+      }
+
+      .page-controls {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-right: 12px;
+        }
+
+        .btn-icon {
+          padding: 8px;
+          border: 1px solid #ccc;
+          background: white;
+          border-radius: 4px;
+          margin-left: 4px;
+          cursor: pointer;
+
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+  }
+}

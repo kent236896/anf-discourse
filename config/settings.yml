@@ -1,0 +1,11 @@
+plugins:
+  anf_discourse_enabled:
+    default: true
+    client: true 
+  anf_api_username:
+    default: ''
+    client: false
+  anf_api_password:
+    default: ''
+    client: false
+    secret: true 

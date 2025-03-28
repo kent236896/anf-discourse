@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ANF Discourse API Test</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    pre { background: #f5f5f5; padding: 10px; border-radius: 5px; overflow: auto; }
+    button { padding: 8px 16px; margin: 5px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h1>ANF Discourse API 测试</h1>
+  
+  <div>
+    <h2>测试路由</h2>
+    <ul>
+      <li><a href="/anf-discourse" target="_blank">/anf-discourse</a> - 主页</li>
+      <li><a href="/anf-discourse/api/categories" target="_blank">/anf-discourse/api/categories</a> - 分类API</li>
+      <li><a href="/anf-discourse/api/repos" target="_blank">/anf-discourse/api/repos</a> - 仓库API</li>
+    </ul>
+  </div>
+  
+  <div>
+    <h2>分类 API 测试</h2>
+    <button onclick="testCategories()">测试分类API</button>
+    <pre id="categories-result">点击按钮开始测试...</pre>
+  </div>
+  
+  <div>
+    <h2>仓库 API 测试</h2>
+    <button onclick="testRepos()">测试仓库API</button>
+    <pre id="repos-result">点击按钮开始测试...</pre>
+  </div>
+
+  <script>
+    function testCategories() {
+      document.getElementById('categories-result').textContent = "加载中...";
+      fetch('/anf-discourse/api/categories')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          document.getElementById('categories-result').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+          document.getElementById('categories-result').innerHTML = `<span class="error">错误: ${err.message}</span>`;
+          console.error('API Error:', err);
+        });
+    }
+    
+    function testRepos() {
+      document.getElementById('repos-result').textContent = "加载中...";
+      fetch('/anf-discourse/api/repos')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          document.getElementById('repos-result').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+          document.getElementById('repos-result').innerHTML = `<span class="error">错误: ${err.message}</span>`;
+          console.error('API Error:', err);
+        });
+    }
+  </script>
+</body>
+</html> 

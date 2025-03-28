@@ -1,0 +1,82 @@
+<div class="repository-ranking">
+  <div class="ranking-sidebar">
+    {{#each this.model.categories as |category|}}
+      <div class="category-item {{if category.active 'active'}}">
+        {{category.name}}
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="ranking-content">
+    <div class="ranking-header">
+      <h1>{{this.model.currentCategory}}
+        -
+        {{this.model.periodName}}
+        Ranking</h1>
+      <p>{{this.model.periodName}}
+        ranking of repos in this collection by stars.</p>
+    </div>
+
+    <div class="ranking-table">
+      <table>
+        <thead>
+          <tr>
+            <th class="rank-col">{{this.model.periodName}}</th>
+            <th class="repo-col">REPOSITORY</th>
+            <th class="star-increase-col">STAR INCREASE</th>
+            <th class="total-stars-col">TOTAL STARS</th>
+            <th class="growth-rate-col">STAR GROWTH RATE</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.model.repos as |repo|}}
+            <tr>
+              <td class="rank-col">{{repo.rank}}</td>
+              <td class="repo-col">
+                <div class="repo-name"><a
+                    href="{{repo.url}}"
+                    target="_blank"
+                  >{{repo.name}}</a></div>
+                <div class="repo-description">{{repo.description}}</div>
+              </td>
+              <td class="star-increase-col">{{repo.starIncrease}}</td>
+              <td class="total-stars-col">{{repo.totalStars}}</td>
+              <td class="growth-rate-col">
+                <span
+                  class="growth-rate
+                    {{if repo.growthIsPositive 'positive' 'negative'}}"
+                >
+                  {{#if repo.growthIsPositive}}↑{{else}}↓{{/if}}
+                  {{repo.growthRate}}%
+                </span>
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="ranking-pagination">
+      <div class="page-info">
+        Items per page:
+        <select>
+          <option value="10" selected>10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </select>
+      </div>
+      <div class="page-controls">
+        <span
+        >{{this.model.paginationInfo.currentPage}}-{{this.model.paginationInfo.itemsPerPage}}
+          of
+          {{this.model.paginationInfo.totalItems}}</span>
+        <button class="btn btn-icon" disabled><span
+            class="d-icon d-icon-chevron-left"
+          ></span></button>
+        <button class="btn btn-icon"><span
+            class="d-icon d-icon-chevron-right"
+          ></span></button>
+      </div>
+    </div>
+  </div>
+</div>

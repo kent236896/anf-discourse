@@ -1,0 +1,43 @@
+<div class="repository-dashboard">
+  <h1>GitHub Repository Rankings</h1>
+
+  <div class="debug-info">
+    <button {{action "refreshData"}} class="btn btn-primary">
+      刷新数据
+    </button>
+  </div>
+
+  <div class="repositories-container">
+    <h2>仓库列表</h2>
+    {{#if this.isLoading}}
+      <div class="loading-container">
+        <div class="spinner"></div>
+      </div>
+    {{else}}
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>排名</th>
+              <th>名称</th>
+              <th>描述</th>
+              <th>星星增长</th>
+              <th>增长率</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.currentRepos as |repo|}}
+              <tr>
+                <td>{{repo.rank}}</td>
+                <td>{{repo.name}}</td>
+                <td>{{repo.description}}</td>
+                <td>{{repo.starIncrease}}</td>
+                <td>{{repo.growthRate}}%</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    {{/if}}
+  </div>
+</div>

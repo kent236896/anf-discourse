@@ -1,0 +1,33 @@
+zh_CN:
+  js:
+    repo_ranking:
+      title: "GitHub 仓库排名"
+      last_28_days: "过去28天排名"
+      last_28_days_desc: "按过去28天星标增长量排序的仓库"
+      rank: "排名"
+      repository: "仓库"
+      star_increase: "增加星标"
+      total_stars: "总星标数"
+      growth_rate: "增长率"
+      items_per_page: "每页显示"
+      of: "共"
+      empty_state: "此类别下没有仓库数据"
+      periods:
+        last_28_days: "过去28天"
+        last_7_days: "过去7天"
+        last_24_hours: "过去24小时"
+      categories:
+        static_site_generator: "静态站点生成器"
+        low_code: "低代码开发工具"
+        business_intelligence: "商业智能"
+        artificial_intelligence: "人工智能"
+        web3: "Web3"
+        cs_courses: "计算机科学课程"
+        mlops: "MLOps 工具"
+        kubernetes: "Kubernetes 工具"
+        virtual_reality: "虚拟现实"
+        robotics: "机器人"
+        chatgpt_alternatives: "ChatGPT 替代品"
+        llm_tools: "LLM 工具"
+        vector_search: "向量搜索引擎"
+        chatgpt_apps: "ChatGPT 应用" 
